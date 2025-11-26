@@ -180,7 +180,8 @@ class LATTE(nn.Module):
         self.with_saa = with_saa
         self.phi_x = nn.Sequential(nn.Linear(x_dim, h_dim), nn.ReLU())
         #spatial_attention
-        self.maa = Memory_Attention_Aggregation(h_dim,z_dim, n_layers, n_obj)
+        # self.maa = Memory_Attention_Aggregation(h_dim,z_dim, n_layers, n_obj)  # original code
+        self.maa = Memory_Attention_Aggregation(h_dim,z_dim, n_layers)
         self.gru_net = GRUNet(h_dim+h_dim , h_dim, 2, n_layers,dropout=[0.5, 0.0])
         self.frame_aggregation = Auxiliary_Self_Attention_Aggregation(5)
         if self.with_saa:
@@ -628,4 +629,5 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
 
