@@ -235,6 +235,7 @@ class LATTE(nn.Module):
             print("img_embed shape: ", img_embed.shape)
             print("obj_embed shape: ", obj_embed.shape)
             # obj_embed, alphas= self.maa(obj_embed, h, t, zeros_object[t])        # Change I did
+            obj_embed = self.maa(obj_embed)      
             x_t = torch.cat([obj_embed, img_embed], dim=-1)
             h_list.append(h)
             # all_alphas.append(alphas)    # Change I did
@@ -634,6 +635,7 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
 
 
 
