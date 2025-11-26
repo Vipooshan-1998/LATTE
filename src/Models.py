@@ -199,7 +199,8 @@ class LATTE(nn.Module):
         :param y, (10 x 2)
         :param toa, (10,)
         """
-        x = self.ema(x) # Model A
+        # x = self.ema(x) # Model A
+        x = self.emssa(x) # Model A
         losses = {'cross_entropy': 0,
                   'total_loss': 0}
         if self.with_saa:
@@ -629,5 +630,6 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
 
 
