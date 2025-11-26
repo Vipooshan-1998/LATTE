@@ -61,7 +61,7 @@ def test_all(testdata_loader, model):
     all_toas = []
     losses_all = []
     with torch.no_grad():
-        for i, (batch_xs, batch_ys, graph_edges, edge_weights, batch_toas) in enumerate(testdata_loader):
+        for i, (batch_xs, batch_ys, batch_toas) in enumerate(testdata_loader):
             # run forward inference
             losses, all_outputs, hiddens = model(batch_xs, batch_ys, batch_toas, graph_edges, 
                     hidden_in=None, edge_weights=edge_weights, npass=10, nbatch=len(testdata_loader), testing=False)
@@ -334,7 +334,7 @@ def train_eval():
             iter_cur += len(traindata_loader)
             continue
         # print("traindata_loader: ", len(traindata_loader))
-        for i, (batch_xs, batch_ys, graph_edges, edge_weights, batch_toas) in enumerate(traindata_loader):
+        for i, (batch_xs, batch_ys, batch_toas) in enumerate(traindata_loader):
             # ipdb.set_trace()
             optimizer.zero_grad()
             losses, all_outputs, hidden_st, _ = model(batch_xs, batch_ys, batch_toas, graph_edges, edge_weights=edge_weights, npass=2, nbatch=len(traindata_loader), eval_uncertain=True)
