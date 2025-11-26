@@ -195,15 +195,15 @@ def write_test_scalars(logger, cur_epoch, cur_iter, losses, metrics):
                                                           'TTA_R80': metrics['TTA_R80']}, cur_iter)
 
 
-def write_weight_histograms(writer, net, epoch):
-    writer.add_histogram('histogram/w1_mu', net.predictor.l1.weight_mu, epoch)
-    writer.add_histogram('histogram/w1_rho', net.predictor.l1.weight_rho, epoch)
-    writer.add_histogram('histogram/w2_mu', net.predictor.l2.weight_mu, epoch)
-    writer.add_histogram('histogram/w2_rho', net.predictor.l2.weight_rho, epoch)
-    writer.add_histogram('histogram/b1_mu', net.predictor.l1.bias_mu, epoch)
-    writer.add_histogram('histogram/b1_rho', net.predictor.l1.bias_rho, epoch)
-    writer.add_histogram('histogram/b2_mu', net.predictor.l2.bias_mu, epoch)
-    writer.add_histogram('histogram/b2_rho', net.predictor.l2.bias_rho, epoch)
+# def write_weight_histograms(writer, net, epoch):
+#     writer.add_histogram('histogram/w1_mu', net.predictor.l1.weight_mu, epoch)
+#     writer.add_histogram('histogram/w1_rho', net.predictor.l1.weight_rho, epoch)
+#     writer.add_histogram('histogram/w2_mu', net.predictor.l2.weight_mu, epoch)
+#     writer.add_histogram('histogram/w2_rho', net.predictor.l2.weight_rho, epoch)
+#     writer.add_histogram('histogram/b1_mu', net.predictor.l1.bias_mu, epoch)
+#     writer.add_histogram('histogram/b1_rho', net.predictor.l1.bias_rho, epoch)
+#     writer.add_histogram('histogram/b2_mu', net.predictor.l2.bias_mu, epoch)
+#     writer.add_histogram('histogram/b2_rho', net.predictor.l2.bias_rho, epoch)
 
 
 def load_checkpoint(model, optimizer=None, filename='checkpoint.pth.tar', isTraining=True):
@@ -325,7 +325,7 @@ def train_eval():
         model, optimizer, start_epoch = load_checkpoint(model, optimizer=optimizer, filename=p.model_file)
 
     # write histograms
-    write_weight_histograms(logger, model, 0)
+    # write_weight_histograms(logger, model, 0)
     iter_cur = 0
     best_metric = 0
     for k in range(p.epoch):
@@ -387,7 +387,7 @@ def train_eval():
 
         scheduler.step(losses['log_posterior'])
         # write histograms
-        write_weight_histograms(logger, model, k+1)
+        # write_weight_histograms(logger, model, k+1)
 
     logger.close()
     
