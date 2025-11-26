@@ -337,7 +337,7 @@ def train_eval():
         for i, (batch_xs, batch_ys, batch_toas) in enumerate(traindata_loader):
             # ipdb.set_trace()
             optimizer.zero_grad()
-            losses, all_outputs, hidden_st, _ = model(batch_xs, batch_ys, batch_toas, graph_edges, edge_weights=edge_weights, npass=2, nbatch=len(traindata_loader), eval_uncertain=True)
+            losses, all_outputs, hidden_st, _ = model(batch_xs, batch_ys, batch_toas, npass=2, nbatch=len(traindata_loader))
             complexity_loss = losses['log_posterior'] - losses['log_prior']
             losses['total_loss'] = p.loss_alpha * complexity_loss + losses['cross_entropy']
             losses['total_loss'] += p.loss_beta * losses['auxloss']
