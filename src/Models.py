@@ -16,7 +16,7 @@ from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 # from .utils_fm import apply_with_stopping_condition
 from transformers import GPT2Tokenizer
 from torch.nn import init
-from fvcore.nn import FlopCountAnalysis, parameter_count
+# from fvcore.nn import FlopCountAnalysis, parameter_count
 
 class AccidentPredictor(nn.Module):
     def __init__(self, input_dim, output_dim=2, act=torch.relu, dropout=[0, 0]):
@@ -628,3 +628,4 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
