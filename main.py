@@ -267,9 +267,9 @@ def train_eval():
     testdata_loader = DataLoader(dataset=test_data, batch_size=p.batch_size, shuffle=False, drop_last=True)
     
     # building model
-    model = UString(feature_dim, p.hidden_dim, p.latent_dim, 
+    model = LATTE(feature_dim, p.hidden_dim, p.latent_dim, 
                        n_layers=p.num_rnn, n_obj=train_data.n_obj, n_frames=train_data.n_frames, fps=train_data.fps, 
-                       with_saa=True, uncertain_ranking=True)
+                       with_saa=True)        # uncertain_ranking=True
 
     # # # ----------------------
     # # # Run FLOP analysis
@@ -337,7 +337,7 @@ def train_eval():
         for i, (batch_xs, batch_ys, graph_edges, edge_weights, batch_toas) in enumerate(traindata_loader):
             # ipdb.set_trace()
             optimizer.zero_grad()
-            losses, all_outputs, hidden_st = model(batch_xs, batch_ys, batch_toas, graph_edges, edge_weights=edge_weights, npass=2, nbatch=len(traindata_loader), eval_uncertain=True)
+            losses, all_outputs, hidden_st, _ = model(batch_xs, batch_ys, batch_toas, graph_edges, edge_weights=edge_weights, npass=2, nbatch=len(traindata_loader), eval_uncertain=True)
             complexity_loss = losses['log_posterior'] - losses['log_prior']
             losses['total_loss'] = p.loss_alpha * complexity_loss + losses['cross_entropy']
             losses['total_loss'] += p.loss_beta * losses['auxloss']
