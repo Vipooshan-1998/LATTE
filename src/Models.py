@@ -190,7 +190,8 @@ class LATTE(nn.Module):
             self.aaa = Auxiliary_Self_Attention_Aggregation(self.n_frames)
         # loss function
         self.ce_loss = torch.nn.CrossEntropyLoss(reduction='none')
-        self.emssa = EMSA(channels=100)
+        # self.emssa = EMSA(channels=100)    # change I did
+        self.emssa = EMSA(channels=self.h_dim)
 
 
     def forward(self, x, y, toa, hidden_in=None, nbatch=80, testing=False):
@@ -199,7 +200,7 @@ class LATTE(nn.Module):
         :param y, (10 x 2)
         :param toa, (10,)
         """
-        # x = self.ema(x) # Model A
+        # x = self.ema(x) # Model A         # change I did
         x = self.emssa(x) # Model A
         losses = {'cross_entropy': 0,
                   'total_loss': 0}
@@ -630,6 +631,7 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
 
 
 
