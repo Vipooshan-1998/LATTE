@@ -19,7 +19,7 @@ from tensorboardX import SummaryWriter
 from tqdm import tqdm
 from sklearn.metrics import average_precision_score
 
-from src.DataLoader import DADDataset, DADDatasetGeometrics
+from src.DataLoader import DADDataset
 
 seed = 123
 np.random.seed(seed)
