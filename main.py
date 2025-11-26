@@ -11,7 +11,6 @@ import argparse
 import shutil
 
 from torch.utils.data import DataLoader
-from src.Models import UString
 from src.eval_tools import evaluation, print_results, vis_results
 import ipdb
 import matplotlib.pyplot as plt
