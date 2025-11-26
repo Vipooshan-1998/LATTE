@@ -208,7 +208,7 @@ class LATTE(nn.Module):
         if self.with_saa:
             losses.update({'auxloss': 0})
         all_outputs, all_hidden = [], []
-        all_alphas = []
+        # all_alphas = []               # Change I did
         if hidden_in is None:
             h = Variable(torch.zeros(self.n_layers, x.size(0),  self.h_dim))
         else:
@@ -232,10 +232,10 @@ class LATTE(nn.Module):
             x_t = self.phi_x(x[:, t])
             img_embed = x_t[:, 0, :].unsqueeze(1)
             obj_embed = x_t[:, 1:, :]
-            obj_embed, alphas= self.maa(obj_embed, h, t, zeros_object[t])
+            # obj_embed, alphas= self.maa(obj_embed, h, t, zeros_object[t])        # Change I did
             x_t = torch.cat([obj_embed, img_embed], dim=-1)
             h_list.append(h)
-            all_alphas.append(alphas)
+            # all_alphas.append(alphas)    # Change I did
 
             if t==2:
                 h_staked = torch.stack((h_list[t],h_list[t-1], h_list[t-2]),dim=0)
@@ -262,7 +262,7 @@ class LATTE(nn.Module):
             L4 = torch.mean(self.ce_loss(dec, y[:, 1].to(torch.long)))
             losses['auxloss'] = L4
 
-        return losses, all_outputs, all_hidden, all_alphas
+        return losses, all_outputs, all_hidden    #, all_alphas     # Change I did
 
 
     def _exp_loss(self, pred, target, time, toa, fps=10.0):
@@ -632,6 +632,7 @@ class LATTE(nn.Module):
 #         # self.lang_encoder.clear_conditioned_layers()
 
 #         self.lang_encoder._use_cached_vision_x = False
+
 
 
 
